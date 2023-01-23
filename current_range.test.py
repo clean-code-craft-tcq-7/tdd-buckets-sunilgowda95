@@ -4,3 +4,5 @@ from current_range import get_range
 assert get_range([4,5]) == "4-5, 2"
 
 assert get_range([4,5,5,6]) == "4-6, 4"
+
+assert get_range([4,5,5,6,9,10]) == "4-6, 4\n9-10 2"

@@ -1,8 +1,13 @@
-from current_range import get_range
+import unittest
 
-# test range : `4,5`. assert output to be `4-5, 2`
-assert get_range([4,5]) == "Range, Readings\n4-5, 2"
-
-assert get_range([4,5,5,6]) == "Range, Readings\n4-6, 4"
-
-assert get_range([4,5,5,6,9,10]) == "Range, Readings\n4-6, 4\n9-10, 2"
+class TypewiseTest(unittest.TestCase):
+    def test_current_range(self):
+        from test_code.t_current_range import test
+        test()
+        
+    def test_continuous_range_count(self):
+        from test_code.t_continuous_range_count import test
+        test()
+        
+if __name__ == '__main__':
+    unittest.main()

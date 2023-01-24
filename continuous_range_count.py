@@ -24,8 +24,16 @@ def get_continuous_range(sorted_samples):
 def get_key(range_value):
     return "{}-{}".format(range_value[0],range_value[1])
 
+def in_limits(value, high, low):
+    return (value>=low and value <= high)
+
 def get_count_for_range(samples, high, low):
-    return len([x for x in samples if x>=low and x<=high])
+    count = 0
+    for sample in samples:
+        if in_limits(sample, high, low):
+            count += 1
+    return count
+    # return len([x for x in samples if x>=low and x<=high])
 
 def get_continuous_count(samples, range_list):
     range_count = {}

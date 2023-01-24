@@ -25,13 +25,13 @@ def get_key(range_value):
     return "{}-{}".format(range_value[0],range_value[1])
 
 def get_count_for_range(samples, high, low):
-    return len([x for x in samples if x>=high and x<=low])
+    return len([x for x in samples if x>=low and x<=high])
 
 def get_continuous_count(samples, range_list):
     range_count = {}
     for range_value in range_list:
         range_key = get_key(range_value)
-        range_count[range_key] = get_count_for_range(samples, range_count[1], range_count[0])
+        range_count[range_key] = get_count_for_range(samples, range_value[1], range_value[0])
     return range_count
  
 def get_continuous_range_and_count(sorted_samples):

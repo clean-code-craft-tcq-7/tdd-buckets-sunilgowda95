@@ -1,0 +1,39 @@
+Input:
+    A set of periodic current samples from a charging session, as an array of integers.
+
+Requirement:
+    Find continuous range, number of readings in each range and output in CSV format.
+
+TDD approach:
+    1.  Test : adding test case 01 : with input [4,5] expected output '4-5,2' : Commit c35f6b0.
+            assert get_range([4,5]) == "4-5, 2"
+        Action : adding minimum code to pass test case 01 : Commit 257f19a.
+            def get_range(current_samples):
+        Assumption : sending harcoded string.
+
+    2.  Test : adding test case 02 to fail assumption from test case 01 : Commit 372b9cc.
+            assert get_range([4,5,5,6]) == "4-6, 4"
+        Action : adding small code to pass test case 02 : Commit 1831918.
+            def get_range(current_samples):
+            def get_unique_list(input):
+        Assumption : assumed entire list is always continuous, extracting first and last value
+            to get range. Getting count from unique list.
+    
+    3.  Test : adding test case 03 to fail assumption from test case : Commit 8ef166a.
+            assert get_range([4,5,5,6,9,10]) == "4-6, 4\n9-10 2"
+        Action : adding code to pass test case 03 : Commit feaed9f.
+            added code and refractored to pass quality checks.
+                    
+            Requirement Breakdown:
+                1. Find continuous ranges.
+                    1.1 sort the data.
+                    1.2 check for continuous range.
+                2. Count reading in each range.
+                3. Output in CSV string format.
+
+Data Driven Test :
+    Added all possible combinations of data.
+    sorted, unsorted, empty, negative & positive integers.
+
+BDD Test:
+    Added test cases for all the refractored functions.

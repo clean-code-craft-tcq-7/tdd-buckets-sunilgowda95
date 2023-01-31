@@ -13,3 +13,4 @@ def test():
     assert get_range([1, 5, 9]) == "Range, Readings\n1-1, 1\n5-5, 1\n9-9, 1"
     assert get_range([1, 5, 11,12]) == "Range, Readings\n1-1, 1\n5-5, 1\n11-12, 2"
     assert get_range([5,4,5,35,85,6,10,9]) == "Range, Readings\n4-6, 4\n9-10, 2\n35-35, 1\n85-85, 1"
+    assert get_range([5,0,4,-1,5,35,-12,85,-11,6,-10,9,1]) == "Range, Readings\n-12--10, 3\n-1-1, 3\n4-6, 4\n9-9, 1\n35-35, 1\n85-85, 1"

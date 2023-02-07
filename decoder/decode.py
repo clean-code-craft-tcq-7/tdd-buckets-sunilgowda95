@@ -1,8 +1,10 @@
+def check_boundaries(sensor_details, each):
+    return (sensor_details['min']['raw'] <= each and each <= sensor_details['max']['raw'])
 
 def ignore_out_of_bound(sensor_details, raw_values):
     values_in_range = []
     for each in raw_values:
-        if sensor_details['min']['raw'] <= each and each <= sensor_details['max']['raw']:
+        if check_boundaries(sensor_details, each):
             values_in_range.append(each)
     return values_in_range
 

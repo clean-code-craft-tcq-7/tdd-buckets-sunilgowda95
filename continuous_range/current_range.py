@@ -1,5 +1,5 @@
-from continuous_range_count import get_continuous_range_and_count
-from csv_format import create_csv_string
+from continuous_range.continuous_range_count import get_continuous_range_and_count
+from continuous_range.csv_format import create_csv_string
 
 def sort_samples(input_samples):
     input_samples.sort()

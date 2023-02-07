@@ -1,5 +1,5 @@
 def test():
-    from current_range import get_range, sort_samples
+    from continuous_range.current_range import get_range, sort_samples
     # sort_samples
     assert sort_samples([3,2,1]) == [1,2,3]
     assert sort_samples([4,5]) == [4,5]

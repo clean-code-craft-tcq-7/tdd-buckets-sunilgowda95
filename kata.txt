@@ -46,7 +46,7 @@ Additional Requirement:
                  which is rounded-off to the nearest integer 3.
     
     Requirement Breakdown:
-        1. Ignore values greater than 4094.
+        1. Ignore values greater than 4094 & less than 0.
         2. Convert to Amps
         3. Round off to nearest integer. Following is the formula used to round off.
             0.0 - 0.49 --> 0
@@ -60,3 +60,26 @@ Additional Requirement:
         [409,409,1228,1637,2047,3684,3275,2865,1556,1555,1554,2998,3000,2999,3001]
         [0,9,99,999,1999,2999,3999,4094]
         [-1,0,4094,4095]
+-------------------------------------------------------------------------------------------------
+Additional Requirement:
+    1. Add another sensor with following details.
+        raw values --> 0    |   511 |   1022
+        amp values --> -15  |   0   |   15
+    2. Use only absolute value to find continuous range of converted corrunt values.
+
+    Requirement Breakdown:
+        1. Ignore values greater than 1022 & less than 0.
+        2. Convert to Amps
+            from the value following is the formula to get value in amps.
+             amps_value = (raw_val*30)/1022 - 15 
+        3. Round off to nearest integer. Following is the formula used to round off.
+            0.0 - 0.49 --> 0
+            0.5 - 0.99 --> 1
+        4. Once we have range of values, integrate it with continuous range finder.    
+
+    Input from Sensor Covering all the possible values:
+        []
+        [155]
+        [-1,0,510,511,512,1011,1022,1023]
+        [0,9,99,999]
+        [0,34,817,681,647,136,953,919,545,511]

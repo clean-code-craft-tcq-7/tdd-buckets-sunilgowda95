@@ -9,7 +9,8 @@ sensor_details_12bit = {
     "max" : {
         "raw" : 4094,
         "amps" : 10
-    }
+    },
+    "reduce_by" : 0
 }
 
 def decode_12_bit(raw_digital_values):

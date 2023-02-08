@@ -8,11 +8,15 @@ def ignore_out_of_bound(sensor_details, raw_values):
             values_in_range.append(each)
     return values_in_range
 
+def get_range(sensor_details):
+    return sensor_details['max']['amps'] - sensor_details['min']['amps']
+
 def divide(sensor_details, value):
-    return (value * sensor_details['max']['amps'])//sensor_details['max']['raw']
+    output_range = get_range(sensor_details)
+    return ((value * output_range)//sensor_details['max']['raw']) - sensor_details['reduce_by']
 
 def round_off_offset(sensor_details, value):
-    return ( (((value * sensor_details['max']['amps']) / sensor_details['max']['raw']) % 1) > 0.49 )
+    return ( abs(((value * sensor_details['max']['amps']) / sensor_details['max']['raw']) % 1) > 0.49 )
 
 def convert_to_amps(sensor_details, raw_values_in_range):
     converted_values = []

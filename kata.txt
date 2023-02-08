@@ -1,0 +1,85 @@
+Input:
+    A set of periodic current samples from a charging session, as an array of integers.
+
+Requirement:
+    Find continuous range, number of readings in each range and output in CSV format.
+
+TDD approach:
+    1.  Test : adding test case 01 : with input [4,5] expected output '4-5,2' : Commit c35f6b0.
+            assert get_range([4,5]) == "4-5, 2"
+        Action : adding minimum code to pass test case 01 : Commit 257f19a.
+            def get_range(current_samples):
+        Assumption : sending harcoded string.
+
+    2.  Test : adding test case 02 to fail assumption from test case 01 : Commit 372b9cc.
+            assert get_range([4,5,5,6]) == "4-6, 4"
+        Action : adding small code to pass test case 02 : Commit 1831918.
+            def get_range(current_samples):
+            def get_unique_list(input):
+        Assumption : assumed entire list is always continuous, extracting first and last value
+            to get range. Getting count from unique list.
+    
+    3.  Test : adding test case 03 to fail assumption from test case : Commit 8ef166a.
+            assert get_range([4,5,5,6,9,10]) == "4-6, 4\n9-10 2"
+        Action : adding code to pass test case 03 : Commit feaed9f.
+            added code and refractored to pass quality checks.
+                    
+            Requirement Breakdown:
+                1. Find continuous ranges.
+                    1.1 sort the data.
+                    1.2 check for continuous range.
+                2. Count reading in each range.
+                3. Output in CSV string format.
+
+Data Driven Test :
+    Added all possible combinations of data.
+    sorted, unsorted, empty, negative & positive integers.
+
+BDD Test:
+    Added test cases for all the refractored functions.
+-------------------------------------------------------------------------------------------------
+Additional Requirement:
+    1. Add Sensor decoder. Sensor is 12bit A2D converter.
+        sensor readings range 0 - 4094 corresponds to 0 - 10AMPS
+    2. Decoder should round the resulting decoded value to nearest interger.
+        Example: If the A2D reports 1146, it is 10 Amps * 1146 / 4094 = 2.799 Amps,
+                 which is rounded-off to the nearest integer 3.
+    
+    Requirement Breakdown:
+        1. Ignore values greater than 4094 & less than 0.
+        2. Convert to Amps
+        3. Round off to nearest integer. Following is the formula used to round off.
+            0.0 - 0.49 --> 0
+            0.5 - 0.99 --> 1
+        4. Once we have range of values, integrate it with continuous range finder.
+
+    Input from Sensor Covering all the possible values:
+        []
+        [999]
+        [0,4094]
+        [409,409,1228,1637,2047,3684,3275,2865,1556,1555,1554,2998,3000,2999,3001]
+        [0,9,99,999,1999,2999,3999,4094]
+        [-1,0,4094,4095]
+-------------------------------------------------------------------------------------------------
+Additional Requirement:
+    1. Add another sensor with following details.
+        raw values --> 0    |   511 |   1022
+        amp values --> -15  |   0   |   15
+    2. Use only absolute value to find continuous range of converted corrunt values.
+
+    Requirement Breakdown:
+        1. Ignore values greater than 1022 & less than 0.
+        2. Convert to Amps
+            from the value following is the formula to get value in amps.
+             amps_value = (raw_val*30)/1022 - 15 
+        3. Round off to nearest integer. Following is the formula used to round off.
+            0.0 - 0.49 --> 0
+            0.5 - 0.99 --> 1
+        4. Once we have range of values, integrate it with continuous range finder.    
+
+    Input from Sensor Covering all the possible values:
+        []
+        [155]
+        [-1,0,510,511,512,1011,1022,1023]
+        [0,9,99,999]
+        [0,34,817,681,647,136,953,919,545,511]
